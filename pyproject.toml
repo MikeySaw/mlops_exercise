@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlops_ex_2"
+version = "0.0.1"
+description = "An exercise practicing code structure"
+authors = [
+  { name = "Michael Sawitzki", email = "your@email.com" },
+]
+
+readme = "README.md"
+requires-python = ">=3.12.2"
+dynamic = ["dependencies", "optional-dependencies"]
+
+[tool.setuptools]
+packages = ["mlops_ex_2"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.dynamic.optional-dependencies]
+dev = {file = ['requirements_dev.txt']}
+
+[tool.ruff]
+line-length = 120
