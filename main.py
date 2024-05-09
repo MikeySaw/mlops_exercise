@@ -30,17 +30,16 @@ def train(lr):
             # Flatten MNIST images into a 784 long vector
             images = images.view(images.shape[0], -1)
             # print(images.shape, labels.shape)
-        
+
             # TODO: Training pass
             optimizer.zero_grad()
             output = model(images)
             loss = criterion(output, labels)
             loss.backward()
             optimizer.step()
-            
-            
+
             running_loss += loss.item()
-        
+
         print(f"Training loss: {running_loss/len(train_set)}")
 
     torch.save(model.state_dict(), "model.pt")
@@ -66,7 +65,7 @@ def evaluate(model_checkpoint="model.pt"):
             equals = top_class == labels.view(*top_class.shape)
             accuracy_sum += torch.mean(equals.type(torch.FloatTensor))
 
-        print(f'Accuracy: {(accuracy_sum.item()*100)/len(test_set)}%')        
+        print(f"Accuracy: {(accuracy_sum.item()*100)/len(test_set)}%")
 
 
 cli.add_command(train)

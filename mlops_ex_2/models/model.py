@@ -21,5 +21,3 @@ class MyAwesomeModel(nn.Module):
         x = F.relu(self.fc4(x))
         x = F.log_softmax(self.fc5(x), dim=-1)
         return x
-
-

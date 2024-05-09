@@ -7,20 +7,20 @@ from torch.utils.data import DataLoader
 from data.make_dataset import CustomDataset
 import matplotlib.pyplot as plt
 
+
 def create_plot(losses):
     epochs = range(1, len(losses) + 1)
 
-    plt.plot(epochs, losses, label='Training Losses')
-    plt.xlabel('Epochs')
-    plt.ylabel('Losses')
-    plt.title('Training Losses Over Epochs')
+    plt.plot(epochs, losses, label="Training Losses")
+    plt.xlabel("Epochs")
+    plt.ylabel("Losses")
+    plt.title("Training Losses Over Epochs")
 
-    folder_path = 'reports/figures'  
-    file_path = os.path.join(folder_path, 'training_losses_plot.png')
+    folder_path = "reports/figures"
+    file_path = os.path.join(folder_path, "training_losses_plot.png")
     plt.savefig(file_path)
 
     print("Plot saved to:", file_path)
-
 
 
 @click.group()
@@ -38,9 +38,8 @@ def train(lr):
 
     # TODO: Implement training loop here
 
-
     model = MyAwesomeModel()
-    with open('data/processed/train_set.pkl', 'rb') as f:
+    with open("data/processed/train_set.pkl", "rb") as f:
         train_set = pickle.load(f)
 
     train_dataloader = DataLoader(train_set, batch_size=64, shuffle=True)
@@ -54,25 +53,24 @@ def train(lr):
             # Flatten MNIST images into a 784 long vector
             images = images.view(images.shape[0], -1)
             # print(images.shape, labels.shape)
-        
+
             # TODO: Training pass
             optimizer.zero_grad()
             output = model(images)
             loss = criterion(output, labels)
             loss.backward()
             optimizer.step()
-            
-            
+
             running_loss += loss.item()
 
-        training_losses.append(running_loss/len(train_dataloader))
-
+        training_losses.append(running_loss / len(train_dataloader))
 
         print(f"Training loss: {running_loss/len(train_dataloader)}")
 
     torch.save(model.state_dict(), "models/model.pt")
     print("Model has been saved to models/model.pt")
     create_plot(training_losses)
+
 
 cli.add_command(train)
 
