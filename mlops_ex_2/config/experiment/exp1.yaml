@@ -1,0 +1,6 @@
+# @package _group_
+batch_size: 32
+lr: 1e-2
+n_epochs : 20
+seed: 123
+plot_name: "experiment1.png"

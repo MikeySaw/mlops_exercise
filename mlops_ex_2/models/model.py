@@ -5,14 +5,14 @@ import torch.nn.functional as F
 class MyAwesomeModel(nn.Module):
     """My awesome model."""
 
-    def __init__(self):
+    def __init__(self, hidden1, hidden2, hidden3, hidden4, drop_p):
         super().__init__()
-        self.fc1 = nn.Linear(784, 256)
-        self.fc2 = nn.Linear(256, 128)
-        self.fc3 = nn.Linear(128, 64)
-        self.fc4 = nn.Linear(64, 32)
-        self.fc5 = nn.Linear(32, 10)
-        self.dropout = nn.Dropout(p=0.2)
+        self.fc1 = nn.Linear(784, hidden1)
+        self.fc2 = nn.Linear(hidden1, hidden2)
+        self.fc3 = nn.Linear(hidden2, hidden3)
+        self.fc4 = nn.Linear(hidden3, hidden4)
+        self.fc5 = nn.Linear(hidden4, 10)
+        self.dropout = nn.Dropout(p=drop_p)
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
