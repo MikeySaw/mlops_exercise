@@ -4,7 +4,8 @@ import sys
 from pathlib import Path
 from rich.logging import RichHandler
 
-LOGS_DIR = "logging_exercise/logs"
+LOGS_DIR = Path("logs")
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 logging_config = {
