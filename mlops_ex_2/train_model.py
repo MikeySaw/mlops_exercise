@@ -1,7 +1,6 @@
 import logging
 import hydra
 
-import click
 import torch
 import pickle
 import os
@@ -13,6 +12,7 @@ import matplotlib.pyplot as plt
 
 log = logging.getLogger(__name__)
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def create_plot(losses, plot_name):
     epochs = range(1, len(losses) + 1)
@@ -49,7 +49,7 @@ def train(config):
         model_params['hidden1'], 
         model_params['hidden1'], 
         model_params['drop_p']
-        )
+        ).to(device)
     
     with open("data/processed/train_set.pkl", "rb") as f:
         train_set = pickle.load(f)
@@ -64,13 +64,13 @@ def train(config):
         running_loss = 0
         for images, labels in train_dataloader:
             # Flatten MNIST images into a 784 long vector
-            images = images.view(images.shape[0], -1)
+            images = images.view(images.shape[0], -1).to(device)
             # print(images.shape, labels.shape)
 
             # TODO: Training pass
             optimizer.zero_grad()
             output = model(images)
-            loss = criterion(output, labels)
+            loss = criterion(output, labels.to(device))
             loss.backward()
             optimizer.step()
 
@@ -80,9 +80,9 @@ def train(config):
 
         log.info(f"Training loss: {running_loss/len(train_dataloader)}")
 
-    torch.save(model.state_dict(), "models/model.pt")
+    torch.save(model.state_dict(), f"models/model_{hparams["plot_name"]}_{model_params["plot_name"]}.pt")
     log.info("Model has been saved to models/model.pt")
-    create_plot(training_losses, hparams["plot_name"])
+    create_plot(training_losses, f"{hparams["plot_name"]}_{model_params["plot_name"]}.png")
 
 
 
