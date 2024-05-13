@@ -8,7 +8,7 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-PROJECT_NAME = mlops_ex_2
+PROJECT_NAME = src
 PYTHON_VERSION = 3.12.2
 PYTHON_INTERPRETER = python
 

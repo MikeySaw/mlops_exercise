@@ -7,7 +7,7 @@ RUN apt update && \
 
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
-COPY mlops_ex_2/ mlops_ex_2/
+COPY src/ src/
 COPY data/ data/
 
 WORKDIR /

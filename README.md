@@ -1,4 +1,4 @@
-# mlops_ex_2
+# MLOPS Course LMU Munich Summer 2024
 
 An exercise practicing code structure
 
@@ -37,7 +37,7 @@ The directory structure of the project looks like this:
 │
 ├── tests                <- Test files
 │
-├── mlops_ex_2  <- Source code for use in this project.
+├── src  <- Source code for use in this project.
 │   │
 │   ├── __init__.py      <- Makes folder a Python module
 │   │
