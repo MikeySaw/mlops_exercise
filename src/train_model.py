@@ -1,3 +1,4 @@
+import wandb
 import logging
 import hydra
 
@@ -35,12 +36,22 @@ def train(config):
     """Train a model on MNIST."""
     print(f"configuration: \n {OmegaConf.to_yaml(config)}")
     print(os.getcwd())
+    
+    # get hyperparameters from hydras config files
     hparams = config.experiment
     model_params = config.model_conf
     torch.manual_seed(hparams["seed"])
 
-
-    # TODO: Implement training loop here
+    
+    
+    # setup wandb config with hydra
+    wandb_config = OmegaConf.to_container(
+        config, resolve=True, throw_on_missing=True
+    )
+    
+    run = wandb.init(project="MLOPs wandb practice", config=wandb_config)
+    
+    # Implement training loop here
     os.chdir("../../..")    
     print(os.getcwd())
     model = MyAwesomeModel(
@@ -76,6 +87,7 @@ def train(config):
 
             running_loss += loss.item()
 
+        wandb.log({"Loss": running_loss / len(train_dataloader)})
         training_losses.append(running_loss / len(train_dataloader))
 
         log.info(f"Training loss: {running_loss/len(train_dataloader)}")
