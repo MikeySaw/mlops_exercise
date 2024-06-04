@@ -1,8 +1,10 @@
 import pytest 
 import torch
+import os.path
 from src.data.make_dataset import mnist 
+from tests import _PATH_DATA
 
-
+@pytest.mark.skipif(not os.path.exists(_PATH_DATA), reason="Data files not found")
 def test_data(): 
     train, test = mnist() 
     assert len(train) == 30000
