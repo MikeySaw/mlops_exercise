@@ -23,7 +23,7 @@ def mnist():
     path = "data/raw/"
 
     # Load test data
-    test_images = torch.load(os.path.join(path + "test_images.pt"))
+    test_images = torch.load(os.path.join(path + "test_images.pt")).view(-1, 1, 28, 28)
     test_target = torch.load(os.path.join(path + "test_target.pt"))
 
     # Load train data
@@ -35,7 +35,7 @@ def mnist():
         train_target.append(torch.load(os.path.join(path + f"train_target_{i}.pt")))
 
     # Concatenate loaded tensors
-    train_images = torch.cat(train_images, dim=0)
+    train_images = torch.cat(train_images, dim=0).view(-1, 1, 28, 28)
     train_target = torch.cat(train_target, dim=0)
 
     # create instances of pytorch dataset class
