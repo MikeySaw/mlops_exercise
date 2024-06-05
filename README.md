@@ -1,6 +1,8 @@
 # MLOPS Course LMU Munich Summer 2024
 
-An exercise practicing code structure
+![mlops_exercise MLOps.png](assets/MLOps.png)
+
+This repository is about learning all the useful tools in the MLOps universe! 
 
 ## Project structure
 
@@ -56,8 +58,4 @@ The directory structure of the project looks like this:
 │   └── predict_model.py <- script for predicting from a model
 │
 └── LICENSE              <- Open-source license if one is chosen
-```
-
-Created using [mlops_template](https://github.com/SkafteNicki/mlops_template),
-a [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
-started with Machine Learning Operations (MLOps).
+```.
