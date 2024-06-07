@@ -9,7 +9,7 @@ import wandb
 from omegaconf import OmegaConf
 from torch.utils.data import DataLoader
 
-from data.make_dataset import CustomDataset
+from data.make_dataset import CustomDataset # noqa
 from models.model import MyAwesomeModel
 
 log = logging.getLogger(__name__)
