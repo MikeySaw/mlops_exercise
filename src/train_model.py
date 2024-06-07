@@ -1,19 +1,21 @@
-import wandb
 import logging
-import hydra
-
-import torch
-import pickle
 import os
-from models.model import MyAwesomeModel
+import pickle
+
+import hydra
+import matplotlib.pyplot as plt
+import torch
+import wandb
 from omegaconf import OmegaConf
 from torch.utils.data import DataLoader
+
 from data.make_dataset import CustomDataset
-import matplotlib.pyplot as plt
+from models.model import MyAwesomeModel
 
 log = logging.getLogger(__name__)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 def create_plot(losses, plot_name):
     epochs = range(1, len(losses) + 1)
@@ -30,38 +32,33 @@ def create_plot(losses, plot_name):
     print("Plot saved to:", file_path)
 
 
-
 @hydra.main(config_path="config", config_name="default_config.yaml")
 def train(config):
     """Train a model on MNIST."""
     print(f"configuration: \n {OmegaConf.to_yaml(config)}")
     print(os.getcwd())
-    
+
     # get hyperparameters from hydras config files
     hparams = config.experiment
     model_params = config.model_conf
     torch.manual_seed(hparams["seed"])
 
-    
-    
     # setup wandb config with hydra
-    wandb_config = OmegaConf.to_container(
-        config, resolve=True, throw_on_missing=True
-    )
-    
+    wandb_config = OmegaConf.to_container(config, resolve=True, throw_on_missing=True)
+
     run = wandb.init(project="MLOPs wandb practice", config=wandb_config)
-    
+
     # Implement training loop here
-    os.chdir("../../..")    
+    os.chdir("../../..")
     print(os.getcwd())
     model = MyAwesomeModel(
-        model_params['hidden1'], 
-        model_params['hidden1'], 
-        model_params['hidden1'], 
-        model_params['hidden1'], 
-        model_params['drop_p']
-        ).to(device)
-    
+        model_params["hidden1"],
+        model_params["hidden1"],
+        model_params["hidden1"],
+        model_params["hidden1"],
+        model_params["drop_p"],
+    ).to(device)
+
     with open("data/processed/train_set.pkl", "rb") as f:
         train_set = pickle.load(f)
 
@@ -95,9 +92,6 @@ def train(config):
     torch.save(model.state_dict(), f"models/model_{hparams["plot_name"]}_{model_params["plot_name"]}.pt")
     log.info("Model has been saved to models/model.pt")
     create_plot(training_losses, f"{hparams["plot_name"]}_{model_params["plot_name"]}.png")
-
-
-
 
 
 if __name__ == "__main__":
