@@ -177,7 +177,7 @@ cython_debug/
 #.idea/
 
 # pt files
-*.pt 
+*.pt
 /data
 
 # config logs

@@ -7,6 +7,7 @@ from torch.utils.data import Dataset
 
 # create pytorch dataset class
 class CustomDataset(Dataset):
+
     def __init__(self, images, targets):
         self.images = images
         self.targets = targets
@@ -21,19 +22,22 @@ class CustomDataset(Dataset):
 
 
 def mnist():
-    path = "data/raw/"
+    path = 'data/raw/'
 
     # Load test data
-    test_images = torch.load(os.path.join(path + "test_images.pt")).view(-1, 1, 28, 28)
-    test_target = torch.load(os.path.join(path + "test_target.pt"))
+    test_images = torch.load(os.path.join(path + 'test_images.pt')).view(
+        -1, 1, 28, 28)
+    test_target = torch.load(os.path.join(path + 'test_target.pt'))
 
     # Load train data
     train_images = []
     train_target = []
 
     for i in range(6):  # loop over all the images in the folder
-        train_images.append(torch.load(os.path.join(path + f"train_images_{i}.pt")))
-        train_target.append(torch.load(os.path.join(path + f"train_target_{i}.pt")))
+        train_images.append(
+            torch.load(os.path.join(path + f"train_images_{i}.pt")))
+        train_target.append(
+            torch.load(os.path.join(path + f"train_target_{i}.pt")))
 
     # Concatenate loaded tensors
     train_images = torch.cat(train_images, dim=0).view(-1, 1, 28, 28)
@@ -52,24 +56,24 @@ def mnist():
 def main():
     train, test = mnist()
 
-    folder_path = "data/processed"
+    folder_path = 'data/processed'
 
     # Make sure the folder exists, otherwise create it
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
-    train_path = os.path.join(folder_path, "train_set.pkl")
+    train_path = os.path.join(folder_path, 'train_set.pkl')
 
-    with open(train_path, "wb") as f:
+    with open(train_path, 'wb') as f:
         pickle.dump(train, f)
 
-    test_path = os.path.join(folder_path, "test_set.pkl")
-    with open(test_path, "wb") as f:
+    test_path = os.path.join(folder_path, 'test_set.pkl')
+    with open(test_path, 'wb') as f:
         pickle.dump(test, f)
 
-    print("Datasets saved to:", folder_path)
+    print('Datasets saved to:', folder_path)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # Get the data and process it
     main()

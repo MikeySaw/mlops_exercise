@@ -2,7 +2,7 @@
 
 ![mlops_exercise MLOps.png](assets/MLOps.png)
 
-This repository is about learning all the useful tools in the MLOps universe! 
+This repository is about learning all the useful tools in the MLOps universe!
 
 ## Project structure
 
