@@ -45,7 +45,7 @@ jobs:
 
     - name: Comment on PR
       env:
-        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO_TOKEN: ${{ secrets.PAT }}
       run: |
         cml comment create data_statistics.md --watermark-title="Data Checker"
 
