@@ -17,7 +17,7 @@ def load_model(model_checkpoint, logdir="models"):
     artifact.download(root="models/")
     file_name = artifact.files()[0].name
     model = MyAwesomeModel(500, 250, 125, 60, 0.2)
-    model.load_state_dict(torch.load(f"{logdir}/{file_name}"), map_location=torch.device('cpu'))
+    model.load_state_dict(torch.load(f"{logdir}/{file_name}", map_location=torch.device('cpu')))
     return model
 
 def test_model_speed():
