@@ -40,13 +40,13 @@ jobs:
         echo '![](reports/figures/train_label_distribution.png "Train label distribution")' >> data_statistics.md
         echo '![](reports/figures/test_label_distribution.png "Test label distribution")' >> data_statistics.md
 
-      - name: Setup cml 
-        uses: iterative/setup-cml@v2
+    - name: Setup cml 
+      uses: iterative/setup-cml@v2
 
-      - name: Comment on PR
-        env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cml comment create data_statistics.md --watermark-title="Data Cehcker" # (1)! 
+    - name: Comment on PR
+      env:
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cml comment create data_statistics.md --watermark-title="Data Cehcker" # (1)! 
 
 
