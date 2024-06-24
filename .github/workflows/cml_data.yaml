@@ -23,7 +23,8 @@ jobs:
         cache-dependency-path: setup.py
 
     - name: Get data
-      run: dvc pull
+      run: pip install dvc-gdrive
+      run: dvc pull --no-run-cache
       env:
         GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
 
