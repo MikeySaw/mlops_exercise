@@ -31,8 +31,7 @@ jobs:
         pip install dvc-gdrive
         dvc pull --no-run-cache
       env:
-        GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
-        
+        GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }} 
     - name: Check data statistics & generate report
       run: |
         python src/data/dataset_statistics.py
