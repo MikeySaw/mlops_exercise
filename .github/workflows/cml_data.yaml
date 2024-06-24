@@ -1,0 +1,38 @@
+name: DVC Workflow
+
+on:
+  pull_request:
+    branches:
+    - main
+    paths:
+    - '**/*.dvc'
+    - '.dvc/**'
+
+jobs:
+  run_data_checker:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python 
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.12
+        cache: 'pip'
+        cache-dependency-path: setup.py
+
+    - name: Auth with Gdrive
+      uses: google-github-actions/auth@v2
+      with:
+        GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+    
+    - name: Pull data
+      run: |
+        dvc pull --no-run-cache
+
+    - name: Check data statistics
+      run: |
+        python dataset_statistics.py
+
+
