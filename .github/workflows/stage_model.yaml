@@ -47,4 +47,4 @@ jobs:
 
     - name: Test model
       run: |
-        pytest tests/performancetests/test_model.py
+        pytest tests/test_model.py
