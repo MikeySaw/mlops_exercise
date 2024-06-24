@@ -53,9 +53,9 @@ def train(config):
     print(os.getcwd())
     model = MyAwesomeModel(
         model_params['hidden1'],
-        model_params['hidden1'],
-        model_params['hidden1'],
-        model_params['hidden1'],
+        model_params['hidden2'],
+        model_params['hidden3'],
+        model_params['hidden4'],
         model_params['drop_p'],
     ).to(device)
 
