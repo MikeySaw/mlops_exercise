@@ -30,6 +30,6 @@ jobs:
 
     - name: Check data statistics
       run: |
-        python dataset_statistics.py
+        python src/data/dataset_statistics.py
 
 
