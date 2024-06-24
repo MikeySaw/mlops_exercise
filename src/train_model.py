@@ -91,6 +91,13 @@ def train(config):
 
     torch.save(model.state_dict(), f"models/model_{hparams['plot_name']}_{model_params['plot_name']}.pt")
     log.info('Model has been saved to models/model.pt')
+    artifact = wandb.Artifact(
+        name="corrupt_mnist_model",
+        type="model",
+        description="A model trained to classify corrupt MNIST images"
+    )
+    artifact.add_file(f"models/model_{hparams['plot_name']}_{model_params['plot_name']}.pt")
+    run.log_artifact(artifact)
     create_plot(training_losses, f"{hparams['plot_name']}_{model_params['plot_name']}.png")
 
 
