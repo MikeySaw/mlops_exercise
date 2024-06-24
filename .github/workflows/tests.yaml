@@ -30,4 +30,5 @@ jobs:
         GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
     - name: Test with pytest
       run: |
-        pytest -v
+        pytest tests/test_data.py
+        pytest tests/test_model.py
