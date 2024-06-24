@@ -48,4 +48,4 @@ jobs:
 
     - name: Test model
       run: |
-        pytest tests/test_model.py
+        pytest tests/test_model_performance.py
