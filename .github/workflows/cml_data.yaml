@@ -31,10 +31,22 @@ jobs:
         pip install dvc-gdrive
         dvc pull --no-run-cache
       env:
-        GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+        GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }} 
 
-    - name: Check data statistics
+    - name: Check data statistics & generate report
       run: |
-        python src/data/dataset_statistics.py
+        python src/data/dataset_statistics.py > data_statistics.md
+        echo '![](reports/figures/mnist_images.png "MNIST images")' >> data_statistics.md
+        echo '![](reports/figures/train_label_distribution.png "Train label distribution")' >> data_statistics.md
+        echo '![](reports/figures/test_label_distribution.png "Test label distribution")' >> data_statistics.md
+
+    - name: Setup cml 
+      uses: iterative/setup-cml@v2
+
+    - name: Comment on PR
+      env:
+        REPO_TOKEN: ${{ secrets.PAT }}
+      run: |
+        cml comment create data_statistics.md --watermark-title="Data Checker"
 
 
